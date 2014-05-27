@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="NerdDinner" EntityNamespace="NerdDinner.Model" ContextNamespace="NerdDinner" Class="DB" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\NerdDinner.mdf;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="NerdDinnerConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Dinners" Member="Dinners">
+    <Type Name="Dinner">
+      <Column Name="DinnerId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="EventDate" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="EventTime" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="HostedBy" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ContactPhone" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Address" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Country" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Latitude" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Longitude" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Association Name="Dinner_RSVP" Member="RSVPs" ThisKey="DinnerId" OtherKey="DinnerId" Type="RSVP" />
+    </Type>
+  </Table>
+  <Table Name="dbo.RSVP" Member="RSVPs">
+    <Type Name="RSVP">
+      <Column Name="RsvpId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="DinnerId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="AttendeeName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Association Name="Dinner_RSVP" Member="Dinner" ThisKey="DinnerId" OtherKey="DinnerId" Type="Dinner" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
