@@ -1,41 +1,56 @@
-﻿// by Troy Whorten, Feb 28 2014 (though to be fair I didn't write much of it...)
+﻿$(document).ready(function () {
+    if (document.getElementById('map-canvas') != null) {
 
-function getLoc() {
-    if (geoPosition.init()) {
-        geoPosition.getCurrentPosition(geoSuccess, geoError);
+        var coords = new Array();
+        var averageLat = 0;
+        var averageLong = 0;
+
+        var rows = $(".dinnerrow");
+        for (var i = 0; i < rows.length; i++) {
+            coords.push(
+                {
+                latitude : rows[i].getElementsByClassName("latitude")[0].innerText,
+                longitude: rows[i].getElementsByClassName("longitude")[0].innerText,
+                dinnertitle: rows[i].getElementsByClassName("dinnertitle")[0].innerText
+                }
+            );
+            averageLat += Number(rows[i].getElementsByClassName("latitude")[0].innerText);
+            averageLong += Number(rows[i].getElementsByClassName("longitude")[0].innerText);
+            console.log(averageLat + '  ' + averageLong);
+        }
+
+        console.log(coords);
+        averageLat = averageLat / rows.length;
+        averageLong = averageLong / rows.length;
+
+        var pos = new google.maps.LatLng(averageLat,
+                                         averageLong);
+
+        console.log(pos);
+        var mapOptions = {
+            zoom: 8,
+            center: pos
+        };
+
+        map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+        //var infowindow = new google.maps.InfoWindow({
+        //    map: map,
+        //    position: pos,
+        //    content: 'Find a Nerd Dinner'
+        //});
+
+        for (var i = 0; i < coords.length; i++) {
+            var dinnerpos = new google.maps.LatLng(coords[i].latitude,
+                                         coords[i].longitude);
+
+            var marker = new google.maps.Marker({
+                position: dinnerpos,
+                map: map,
+                title: coords[i].dinnertitle
+            });
+        }
     }
-}
 
-var map;
-
-function geoSuccess(p) {
-    //document.getElementById("latitude").innerHTML = p.coords.latitude;
-    //document.getElementById("longitude").innerHTML = p.coords.longitude;
-    //document.getElementById("accuracy").innerHTML = p.coords.accuracy;
-
-    // from Google Maps API 
-    // https://developers.google.com/maps/documentation/javascript/examples/map-simple
-    // I just swaped out lat and long for Syndney, Australia for the geolocation info above
-    var mapOptions = {
-        zoom: 15,
-        center: new google.maps.LatLng(p.coords.latitude, p.coords.longitude)
-    };
-    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
-    // this I copied from a different Google Maps API example
-    // https://developers.google.com/maps/documentation/javascript/examples/map-geolocation
-    var pos = new google.maps.LatLng(p.coords.latitude,
-                                     p.coords.longitude);
-
-    var infowindow = new google.maps.InfoWindow({
-        map: map,
-        position: pos,
-        content: 'Location found using HTML5.'
-    });
-
-    //end Google API Code
-}
-
-function geoError() {
-    document.getElementById("errormsg").innerHTML = "Could not find you!";
-}
+    
+});

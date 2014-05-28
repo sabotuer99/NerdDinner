@@ -4,8 +4,8 @@
     ViewBag.Title = "Index";
 }
 
-<button onclick="getLoc()">Get Location</button>
-<div id="map-canvas"></div>
+@*<button onclick="getLoc()">Get Location</button>*@
+<div id="map-canvas" style="width:600px;height:600px;"></div>
 
 
 
@@ -50,8 +50,8 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
+    <tr class="dinnerrow">
+        <td class="dinnertitle">
             @Html.DisplayFor(modelItem => item.Title)
         </td>
         <td>
@@ -75,10 +75,10 @@
         <td>
             @Html.DisplayFor(modelItem => item.Country)
         </td>
-        <td>
+        <td class = "latitude">
             @Html.DisplayFor(modelItem => item.Latitude)
         </td>
-        <td>
+        <td class = "longitude">
             @Html.DisplayFor(modelItem => item.Longitude)
         </td>
         <td>

@@ -28,7 +28,7 @@ namespace NerdDinner.Controllers
         {
             //var db = new DB();
             //var dinners = db.Dinners;
-            var dinners = _repository.FindAllDinners().Where(x => x.EventDate >= DateTime.Now);
+            var dinners = _repository.FindAllDinners();//.Where(x => x.EventDate >= DateTime.Now);
             return View(dinners);
         }
 
@@ -103,8 +103,8 @@ namespace NerdDinner.Controllers
             try
             {
                 // TODO: Add update logic here
-                //UpdateModel(dinner, collection.ToValueProvider());
                 //db.SubmitChanges();
+                UpdateModel(dinner, collection.ToValueProvider());              
                 _repository.Update(dinner);
                 return RedirectToAction("Index");
             }
