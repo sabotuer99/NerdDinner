@@ -29,6 +29,12 @@ namespace NerdDinner.Controllers
             //var db = new DB();
             //var dinners = db.Dinners;
             var dinners = _repository.FindAllDinners();//.Where(x => x.EventDate >= DateTime.Now);
+
+            if (Request.IsAjaxRequest())
+            {
+                return Json(dinners, JsonRequestBehavior.AllowGet);
+            }
+
             return View(dinners);
         }
 
