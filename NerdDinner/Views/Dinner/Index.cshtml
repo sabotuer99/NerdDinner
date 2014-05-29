@@ -50,7 +50,7 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr class="dinnerrow">
+    <tr class="dinnerrow" data-dinnerId="@item.DinnerId">
         <td class="dinnertitle">
             @Html.DisplayFor(modelItem => item.Title)
         </td>

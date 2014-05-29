@@ -11,7 +11,8 @@
                 {
                 latitude : rows[i].getElementsByClassName("latitude")[0].innerText,
                 longitude: rows[i].getElementsByClassName("longitude")[0].innerText,
-                dinnertitle: rows[i].getElementsByClassName("dinnertitle")[0].innerText
+                dinnertitle: rows[i].getElementsByClassName("dinnertitle")[0].innerText,
+                dinnerid: rows[i].getAttribute("data-dinnerId")
                 }
             );
             averageLat += Number(rows[i].getElementsByClassName("latitude")[0].innerText);
@@ -40,17 +41,51 @@
         //    content: 'Find a Nerd Dinner'
         //});
 
+        var markers = [];
+        //var infowindows = [];
+
         for (var i = 0; i < coords.length; i++) {
             var dinnerpos = new google.maps.LatLng(coords[i].latitude,
                                          coords[i].longitude);
 
-            var marker = new google.maps.Marker({
+            var data = coords[i].dinnertitle;
+
+            var infowindow = new google.maps.InfoWindow({
+                content: data
+            });
+            
+
+            marker = new google.maps.Marker({
                 position: dinnerpos,
                 map: map,
-                title: coords[i].dinnertitle
+                title: coords[i].dinnertitle,
+                url: "Dinner/Details/" + coords[i].dinnerid
+                });
+
+            marker.data = data;
+
+            markers[i] = marker;
+
+            google.maps.event.addListener(marker, 'mouseover', function () {
+                    infowindow.setContent(this.data);
+                    infowindow.open(map, this);                       
+            })
+
+            google.maps.event.addListener(marker, 'click', function () {
+                window.location.href = this.url;
+            })
+
+            //autocenter?
+            var bounds = new google.maps.LatLngBounds();
+            $.each(markers, function (index, marker) {
+                bounds.extend(marker.position);
             });
+            map.fitBounds(bounds);
+
         }
     }
+
+
 
     
 });
