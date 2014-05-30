@@ -17,10 +17,11 @@
 
                 $('#dinnerlist').append($('<li/>')
                     .attr("class", "dinnerItem")
-                    .append(dinner.Title)
+                    .append("<a href='" + dinner.Url + "'><strong>" + dinner.Title + "</strong></a>")
                     .append($('<br/>'))
                     .append(dinner.EventDate)
-                    .append(" with " + dinner.RSVPCount))
+                    .append(" with " + dinner.RSVPCount)
+                    .append($('<hr style="margin: 10px 0px">')))
                 //averageLat += Number(dinner.latitude);
                 //averageLong += Number(dinner.longitude);
             });
@@ -44,7 +45,7 @@
             map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
             var markers = [];
-            //var infowindows = [];
+            var infowindows = [];
 
             for (var i = 0; i < coords.length; i++) {
                 var dinnerpos = new google.maps.LatLng(coords[i].latitude,
@@ -52,16 +53,14 @@
 
                 var data = coords[i].dinnertitle;
 
-                var infowindow = new google.maps.InfoWindow({
-                    content: data
-                });
+                 
 
 
                 marker = new google.maps.Marker({
                     position: dinnerpos,
                     map: map,
                     title: coords[i].dinnertitle,
-                    url: "Dinner/Details/" + coords[i].dinnerid
+                    url: "dinner/details/" + coords[i].dinnerid
                 });
 
                 marker.data = data;
@@ -70,14 +69,39 @@
 
                 console.log(marker);
 
+
+                var linkattr = "[href='" + marker.url + "']";
+                console.log(linkattr);
+                var sidelink = document.querySelector(linkattr);
+                console.log(sidelink);
+
+                
+
+                marker.info = new google.maps.InfoWindow({
+                    content: data
+                });
+                
+                marker.info.setContent(marker.data);
+                
+                sidelink.marker = marker;
+
                 google.maps.event.addListener(marker, 'mouseover', function () {
-                    //console.log(this);
-                    infowindow.setContent(this.data);
-                    infowindow.open(map, this);
+                    //console.log(this);                 
+                    //infowindow.setContent(this.data);
+                    this.info.open(map, this);
                 })
 
+                sidelink.addEventListener('mouseover', function () {
+                    //infowindow.setContent(this.marker.data);                
+                    this.marker.info.open(map, this.marker);
+                });
+
                 google.maps.event.addListener(marker, 'mouseout', function () {
-                    infowindow.close();
+                    this.info.close();
+                })
+
+                sidelink.addEventListener('mouseout', function () {
+                    this.marker.info.close();
                 })
 
                 google.maps.event.addListener(marker, 'click', function () {

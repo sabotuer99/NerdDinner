@@ -12,7 +12,7 @@ namespace NerdDinner.Controllers
         public JsonDinner(Dinner dinner)
         {
             DinnerId = dinner.DinnerId;
-            EventDate = dinner.EventDate.ToString();
+            EventDate = dinner.EventDate.Value.ToShortDateString();
             Latitude = dinner.Latitude;
             Longitude = dinner.Longitude;
             Title = dinner.Title;
