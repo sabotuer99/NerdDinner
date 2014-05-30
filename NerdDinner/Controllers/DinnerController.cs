@@ -32,7 +32,7 @@ namespace NerdDinner.Controllers
 
             if (Request.IsAjaxRequest())
             {
-                return Json(dinners, JsonRequestBehavior.AllowGet);
+                return Json(DinnerViewModel.GetJsonDinners(dinners), JsonRequestBehavior.AllowGet);
             }
 
             return View(dinners);

@@ -1,0 +1,33 @@
+﻿@model NerdDinner.Models.RsvpViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", new { id = Model.DinnerId })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RSVPs[0].AttendeeName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.RSVPs) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AttendeeName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.RsvpId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.RsvpId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.RsvpId })
+        </td>
+    </tr>
+}
+
+</table>

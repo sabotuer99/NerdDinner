@@ -4,7 +4,6 @@
         var coords = new Array();
         $.getJSON("/dinner", function (json) {
             $.each(json, function (i, dinner) {
-
                 coords.push(
                     {
                         latitude: dinner.Latitude,
@@ -15,6 +14,13 @@
                 );
 
                 console.log(coords[i]);
+
+                $('#dinnerlist').append($('<li/>')
+                    .attr("class", "dinnerItem")
+                    .append(dinner.Title)
+                    .append($('<br/>'))
+                    .append(dinner.EventDate)
+                    .append(" with " + dinner.RSVPCount))
                 //averageLat += Number(dinner.latitude);
                 //averageLong += Number(dinner.longitude);
             });
@@ -79,17 +85,23 @@
                     window.location.href = this.url;
                 })
 
+
+            }
+
                 //autocenter?
                 var bounds = new google.maps.LatLngBounds();
                 $.each(markers, function (index, marker) {
                     bounds.extend(marker.position);
                 });
                 map.fitBounds(bounds);
-            }
+
+                
+
+            
         });
     }
 
 
-            //datapicker
-           $("#dateinput").datepicker();
+    //datapicker
+    //$("#dateinput").datepicker();
 });

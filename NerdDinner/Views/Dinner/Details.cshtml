@@ -94,5 +94,6 @@
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.DinnerId }) |
+    @Html.ActionLink("RSVP!", "Create", "RSVP", new { id = Model.DinnerId }, new { }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

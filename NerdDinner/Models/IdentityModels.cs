@@ -15,5 +15,7 @@ namespace NerdDinner.Models
         }
 
         public System.Data.Entity.DbSet<NerdDinner.Model.Dinner> Dinners { get; set; }
+
+        public System.Data.Entity.DbSet<NerdDinner.Model.RSVP> RSVPs { get; set; }
     }
 }

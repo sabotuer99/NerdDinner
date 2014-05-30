@@ -4,17 +4,20 @@
     ViewBag.Title = "Index";
 }
 
+<h2>Find a Nerd Dinner near you!</h2>
+
 @*<button onclick="getLoc()">Get Location</button>*@
 <input type="date" id="dateinput" name="dateinput" />
-<div id="map-canvas" style="width:600px;height:600px;"></div>
+<div>
+    <div id="map-canvas" style="width:600px;height:600px;float:left"></div>
+    <div style="width:25%;display:inline-block;margin-left:15px;overflow:scroll"><strong>Dinners</strong><hr /><div id ="dinnerlist"></div></div>
+</div>
 
 
 
-<h2>Index</h2>
-
-<p>
+@*<p>
     @Html.ActionLink("Create New", "Create")
-</p>
+</p>*@
 <table class="table">
     <tr>
         <th>

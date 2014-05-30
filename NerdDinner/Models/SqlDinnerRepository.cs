@@ -40,5 +40,27 @@ namespace NerdDinner.Models
             db.Dinners.DeleteOnSubmit(dinner);
             db.SubmitChanges();
         }
+
+        public void Add(RSVP rsvp)
+        {          
+            db.RSVPs.InsertOnSubmit(rsvp);
+            db.SubmitChanges();
+        }
+
+        public void Update(RSVP rsvp)
+        {
+            db.SubmitChanges();
+        }
+
+        public void Delete(RSVP rsvp)
+        {
+            db.RSVPs.DeleteOnSubmit(rsvp);
+            db.SubmitChanges();
+        }
+
+        public RSVP GetRSVP(int id)
+        {
+            return db.RSVPs.SingleOrDefault(x => x.RsvpId == id);
+        }
     }
 }
