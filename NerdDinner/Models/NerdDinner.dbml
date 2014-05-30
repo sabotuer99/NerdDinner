@@ -18,7 +18,7 @@
   </Table>
   <Table Name="dbo.RSVP" Member="RSVPs">
     <Type Name="RSVP">
-      <Column Name="RsvpId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="RsvpId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="DinnerId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="AttendeeName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Association Name="Dinner_RSVP" Member="Dinner" ThisKey="DinnerId" OtherKey="DinnerId" Type="Dinner" IsForeignKey="true" />
